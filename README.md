@@ -1,6 +1,3 @@
-# rAutoFS
-
-
 #### rAutoFS
 - title : Auto Feature Selection in R  
 - author : 2e Consulting DS Lab <jacobgreen1984@2e.co.kr>
