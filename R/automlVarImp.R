@@ -26,12 +26,13 @@
 #'   seed = 1234
 #' )
 #' lb <- aml@leaderboard
-#' automlVarImp(lb=lb, num_of_model=30, num_of_vi=10)
+#' automlVarImp(lb=lb, num_of_model=5, num_of_vi=10)
 #' @export
-automlVarImp <- function(lb, num_of_model=30, num_of_vi=10){
+automlVarImp <- function(lb, num_of_model=5, num_of_vi=10){
   
   # stop rule
-  if(num_of_vi>30) {stop("num_of_vi is NOT more than 30")}
+  if(num_of_model>10) {stop("num_of_model should be <= 10")}
+  if(num_of_vi>30) {stop("num_of_vi should be <= 30")}
   
   # top model 
   top_modelId <- as.data.frame(lb$model_id)$model_id

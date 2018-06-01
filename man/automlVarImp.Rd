@@ -4,7 +4,7 @@
 \alias{automlVarImp}
 \title{automlVarImp}
 \usage{
-automlVarImp(lb, num_of_model = 30, num_of_vi = 10)
+automlVarImp(lb, num_of_model = 5, num_of_vi = 10)
 }
 \arguments{
 \item{lb}{automl leaberboard}
@@ -39,5 +39,5 @@ aml <- h2o.automl(
   seed = 1234
 )
 lb <- aml@leaderboard
-automlVarImp(lb=lb, num_of_model=30, num_of_vi=10)
+automlVarImp(lb=lb, num_of_model=5, num_of_vi=10)
 }
