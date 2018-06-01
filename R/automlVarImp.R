@@ -26,9 +26,9 @@
 #'   seed = 1234
 #' )
 #' lb <- aml@leaderboard
-#' automlVarImp(lb=lb, num_of_model=num_of_model, num_of_vi=num_of_vi)
+#' automlVarImp(lb=lb, num_of_model=30, num_of_vi=10)
 #' @export
-automlVarImp <- function(lb, num_of_model=10, num_of_vi=30){
+automlVarImp <- function(lb, num_of_model=30, num_of_vi=10){
 
   top_modelId <- as.data.frame(lb$model_id)$model_id
   top_modelName <- paste0(gsub("_.*","",top_modelId),gsub(".*_","",top_modelId))
@@ -49,7 +49,7 @@ automlVarImp <- function(lb, num_of_model=10, num_of_vi=30){
   top_vi_df <- Reduce(function(x,y) merge(x,y,"rank"), top_vi_list)
   top_vi_df <- top_vi_df[,-grep("percentage",colnames(top_vi_df))]
   colnames(top_vi_df) <- gsub("variable", "vi", colnames(top_vi_df))
-  top_vi_df$vi <- apply(top_vi_df[,-1], 1, rAutoFS::mode)
+  top_vi_df$vi <- apply(top_vi_df[,-1], 1, rAutoFS::getmode)
   top_vi <- unique(top_vi_df$vi)[1:num_of_vi]
 
   return(list("top_vi_df"=top_vi_df, "top_vi"=top_vi))

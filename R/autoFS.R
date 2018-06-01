@@ -13,9 +13,9 @@
 #' data_hex <- as.h2o(churn)
 #' y = "Churn."
 #' x = colnames(data_hex)[colnames(data_hex)!=y]
-#' autoFS(data_hex, x, y, num_of_model=10, num_of_vi=30)
+#' autoFS(data_hex, x, y, num_of_model=30, num_of_vi=10)
 #' @export
-autoFS <- function(data_hex, x, y, num_of_model=10, num_of_vi=30){
+autoFS <- function(data_hex, x, y, num_of_model=30, num_of_vi=10){
 
   splits <- h2o.splitFrame(data_hex, ratio = c(0.5, 0.3), seed = 1234)
   train_hex <- splits[[1]]

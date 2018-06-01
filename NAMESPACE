@@ -2,4 +2,4 @@
 
 export(autoFS)
 export(automlVarImp)
-export(mode)
+export(getmode)
