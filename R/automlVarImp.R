@@ -29,13 +29,17 @@
 #' automlVarImp(lb=lb, num_of_model=30, num_of_vi=10)
 #' @export
 automlVarImp <- function(lb, num_of_model=30, num_of_vi=10){
-
+  
+  # stop rule
+  if(num_of_vi>30) {stop("num_of_vi is NOT more than 30")}
+  
+  # top model 
   top_modelId <- as.data.frame(lb$model_id)$model_id
   top_modelName <- paste0(gsub("_.*","",top_modelId),gsub(".*_","",top_modelId))
   top_vi_list <- list()
   for(i in 1:length(top_modelId)){
     tryCatch({
-      varimp <- as.data.frame(h2o.varimp(h2o.getModel(top_modelId[i]))[, c("variable", "percentage")])
+      varimp <- head(as.data.frame(h2o.varimp(h2o.getModel(top_modelId[i]))[, c("variable", "percentage")]), 50)
       colnames(varimp) <- paste(colnames(varimp),top_modelName[i],sep="_")
       varimp$rank <- 1:nrow(varimp)
       top_vi_list[[top_modelId[i]]] <- varimp
@@ -51,7 +55,9 @@ automlVarImp <- function(lb, num_of_model=30, num_of_vi=10){
   colnames(top_vi_df) <- gsub("variable", "vi", colnames(top_vi_df))
   top_vi_df$vi <- apply(top_vi_df[,-1], 1, rAutoFS::getmode)
   top_vi <- unique(top_vi_df$vi)[1:num_of_vi]
+  top_vi <- top_vi[!is.na(top_vi)]
 
   return(list("top_vi_df"=top_vi_df, "top_vi"=top_vi))
 }
+
 
